@@ -1,0 +1,16 @@
+lib/css/zenburn.css: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/lib/css/zenburn.css
+lib/font/league-gothic/league-gothic.css: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/lib/font/league-gothic/league-gothic.css
+lib/font/league-gothic/league-gothic.eot: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/lib/font/league-gothic/league-gothic.eot
+lib/font/league-gothic/league-gothic.ttf: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/lib/font/league-gothic/league-gothic.ttf
+lib/font/league-gothic/league-gothic.woff: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/lib/font/league-gothic/league-gothic.woff
+lib/js/classList.js: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/lib/js/classList.js
+lib/js/head.min.js: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/lib/js/head.min.js
+lib/js/html5shiv.js: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/lib/js/html5shiv.js
+css/print/paper.css: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/css/print/paper.css
+css/print/pdf.css: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/css/print/pdf.css
+css/reveal.css: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/css/reveal.css
+css/theme/moon.css: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/css/theme/moon.css
+js/reveal.js: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/js/reveal.js
+plugin/highlight/highlight.js: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/plugin/highlight/highlight.js
+plugin/markdown/markdown.js: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/plugin/markdown/markdown.js
+plugin/markdown/marked.js: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/plugin/markdown/marked.js

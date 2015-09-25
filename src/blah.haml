@@ -1,0 +1,45 @@
+!!! html
+%html
+  %head
+    %meta{:charset => "utf-8"}
+    %title Blah
+    - include_css "css/reveal.css"
+    - include_css "css/theme/moon.css"
+    - include_css "lib/css/zenburn.css"
+
+    - include_css "paper.css"
+    - include_css "pdf.css"
+    - include_css "lib/font/league-gothic/league-gothic.css"
+  %body
+    .reveal
+      .slides
+        %section
+          Hello
+
+        %section
+          %h2 Hello there
+          %p reveal.js enables you to create beautiful interactive slide decks using HTML. This presentation will show you examples of what it can do.
+
+        %section
+          %h2 Pretty Code
+          %pre
+            %code
+              :preserve
+                function linkify( selector ) {
+                  if( supports3DTransforms ) {
+                
+                    var nodes = document.querySelectorAll( selector );
+                
+                    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
+                      var node = nodes[i];
+                
+                      if( !node.className ) {
+                        node.className += ' roll';
+                      }
+                    }
+                  }
+                }
+
+    - include_js "lib/js/head.min.js"
+    - include_js "js/reveal.js"
+    - include_js "init.js"
