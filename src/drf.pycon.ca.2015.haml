@@ -90,7 +90,7 @@
         %section
           %h2 PSA: don't do this:
           %pre
-            %code
+            %code.python
               :preserve
                 def myrestview(request):
                     # Manually loading and validating JSON
@@ -100,7 +100,7 @@
         %section
           %h2 Get started with the Django Rest Framework
           %pre
-            %code
+            %code.python
               :preserve
                 class Photo(models.Model):
                     title = models.CharField()
@@ -113,7 +113,7 @@
         %section
           %h2 Get started with the Django Rest Framework
           %pre
-            %code
+            %code.python
               :preserve
                 class PhotoSerializer(ModelSerializer):
                     class Meta:
