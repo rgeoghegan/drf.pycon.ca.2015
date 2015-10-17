@@ -9,7 +9,11 @@ lib/js/html5shiv.js: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/
 css/print/paper.css: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/css/print/paper.css
 css/print/pdf.css: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/css/print/pdf.css
 css/reveal.css: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/css/reveal.css
+
 css/theme/moon.css: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/css/theme/moon.css
+css/theme/sky.css: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/css/theme/sky.css
+css/theme/white.css: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/css/theme/white.css
+
 js/reveal.js: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/js/reveal.js
 plugin/highlight/highlight.js: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/plugin/highlight/highlight.js
 plugin/markdown/markdown.js: https://raw.githubusercontent.com/hakimel/reveal.js/eff226/plugin/markdown/markdown.js
