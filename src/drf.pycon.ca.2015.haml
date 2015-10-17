@@ -77,10 +77,10 @@
               %code DELETE /photos/1234/
               Delete the photo
             %li
-              %code GET/PUT /photos/1234/sharing
+              %code GET/PUT /photos/1234/sharing/
               List of users who can see the photo
             %li
-              %code GET/PUT /photos/1234/sizing/
+              %code GET/PUT /photos/1234/exif/
               See the current size of the photo, resize it with <code>PUT</code>
 
         %section
@@ -96,24 +96,36 @@
                     # Manually loading and validating JSON
                     data = json.loads(request.POST)
                     photo = Photo.objects.get(id=data["photo_id"])
+
         %section
+          %h2 Get started with the Django Rest Framework
           %pre
             %code
               :preserve
-                function linkify( selector ) {
-                  if( supports3DTransforms ) {
-                
-                    var nodes = document.querySelectorAll( selector );
-                
-                    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
-                      var node = nodes[i];
-                
-                      if( !node.className ) {
-                        node.className += ' roll';
-                      }
-                    }
-                  }
-                }
+                class Photo(models.Model):
+                    title = models.CharField()
+                    photo = models.FileField()
+                    user = models.ForeignKey('PhotoUser')
+                    viewers = models.ManyToManyField(
+                        'PhotoUser', related_name='can_view', blank=True
+                    )
+
+        %section
+          %h2 Get started with the Django Rest Framework
+          %pre
+            %code
+              :preserve
+                class PhotoSerializer(ModelSerializer):
+                    class Meta:
+                        model = Photo
+
+                class PhotoView(RetrieveUpdateDestroyAPIView):
+                    serializer_class = PhotoSerializer
+                    queryset = Photo.objects.all()
+
+        %section
+          %img{:src => "photo_get.png"}
+          %a{:href => "http://localhost:8000/photo/1/"} Live Demo!
 
     - include_js "lib/js/head.min.js"
     - include_js "js/reveal.js"
