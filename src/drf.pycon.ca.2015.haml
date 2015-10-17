@@ -20,7 +20,68 @@
 
         %section
           %h2 What is REST?
-          %p <strong>RE</strong>presentational <strong>S</strong>tate
+          %p <strong>RE</strong>presentational <strong>S</strong>tate <strong>T</strong>ransfer
+
+        %section
+          %h2 First, an example
+
+        %section
+          %h2 Photoshare.com!
+          .fragment
+            %p Users:
+            %p Jordi
+            %p Rory
+
+        %section
+          %h2 Each user has photos
+
+        %section
+          %h2 You can share a photo with your friend(s)
+
+        %section
+          %h2 How would you do it in a SOAP/RPC way?
+
+          %ul
+            %li
+              %code POST /addphoto
+            %li
+              %code POST /deletephoto?id=1234
+            %li
+              %code GET /listphotos?user=555
+            %li
+              %code GET /showphoto?id=1234
+            %li
+              %code POST /sharephoto?to_user=444
+            %li
+              %code POST /resizephoto?width=400&height=200
+
+        %section
+          %p Roy Thomas Fielding
+          %p
+            %a{:href=>"http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm"} Architectural Styles and the Design of Network-based Software Architectures (2000)
+
+        %section
+          %h2 How would it look in REST?
+
+          %ul
+            %li
+              %code GET /photos
+              List of photos
+            %li
+              %code POST /photos
+              Create new photo
+            %li
+              %code GET /photos/1234/
+              Show one photo
+            %li
+              %code DELETE /photos/1234/
+              Delete the photo
+            %li
+              %code GET/PUT /photos/1234/sharing
+              List of users who can see the photo
+            %li
+              %code GET/PUT /photos/1234/sizing/
+              See the current size of the photo, resize it with <code>PUT</code>
 
         %section
           %pre
