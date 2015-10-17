@@ -84,6 +84,19 @@
               See the current size of the photo, resize it with <code>PUT</code>
 
         %section
+          %h2 What does this have to do with Django?
+          .fragment Writing good REST APIs with Django is hard, but the Django REST Framework (DRF) makes it easy!
+
+        %section
+          %h2 PSA: don't do this:
+          %pre
+            %code
+              :preserve
+                def myrestview(request):
+                    # Manually loading and validating JSON
+                    data = json.loads(request.POST)
+                    photo = Photo.objects.get(id=data["photo_id"])
+        %section
           %pre
             %code
               :preserve
