@@ -127,6 +127,38 @@
           %img{:src => "photo_get.png"}
           %a{:href => "http://localhost:8000/photo/1/"} Live Demo!
 
+        %section
+          %h2 A few problems we encountered with DRF
+          %ul
+            %li.fragment Dynamic fields kind of subvert the framework
+            %li.fragment Nested resources are awkward
+            %ul
+              %li.fragment Gotta manually link child to parent
+              %li.fragment Messes badly with dynamic fields
+
+        %section
+          %p
+            Static fields (as class properties)
+            %pre
+              %code.python
+                :preserve
+                  class UserSerializer(serializers.Serializer):
+                      email = serializers.EmailField()
+                      name = serializers.CharField()
+          .fragment
+            %p Dynamic fields (overriding fields property)
+            %pre
+              %code.python
+                :preserve
+                  class UserSerializer(serializers.Serializer):
+
+                      @property
+                      def fields(self):
+                          return {
+                              "email": serializers.EmailField(),
+                              "name": serializers.CharField()
+                          }
+
     - include_js "lib/js/head.min.js"
     - include_js "js/reveal.js"
     - include_js "init.js"
