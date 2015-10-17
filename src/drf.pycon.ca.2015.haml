@@ -4,7 +4,7 @@
     %meta{:charset => "utf-8"}
     %title Django Rest Framework: The Good & The Bad
     - include_css "css/reveal.css"
-    - include_css "css/theme/white.css"
+    - include_css "css/theme/beige.css"
     - include_css "lib/css/zenburn.css"
 
     - include_css "paper.css"
@@ -14,9 +14,9 @@
     .reveal
       .slides
         %section
-          %h2 Django Rest Framework: The Good & The Bad
-          %h3 Jordi Gutiérrez Hermoso
-          %h3 & Rory Geoghegan
+          %h1 Django Rest Framework: The Good & The Bad
+          %h2 Jordi Gutiérrez Hermoso
+          %h2 & Rory Geoghegan
 
         %section
           %h2 What is REST?
@@ -98,7 +98,15 @@
                     photo = Photo.objects.get(id=data["photo_id"])
 
         %section
-          %h2 Get started with the Django Rest Framework
+          %h2 How to properly do it
+          %img{:src => "django_views.png"}
+
+        %section
+          %h2 How to properly do it
+          %img{:src => "drf_views.png"}
+
+        %section
+          %h2 Our Photo Model
           %pre
             %code.python
               :preserve
@@ -111,7 +119,7 @@
                     )
 
         %section
-          %h2 Get started with the Django Rest Framework
+          %h2 The Views
           %pre
             %code.python
               :preserve
@@ -124,8 +132,13 @@
                     queryset = Photo.objects.all()
 
         %section
+          %h2
+            %a{:href => "http://localhost:8000/photo/1/"} Live Demo!
           %img{:src => "photo_get.png"}
-          %a{:href => "http://localhost:8000/photo/1/"} Live Demo!
+
+        %section
+          %h2 Form Options
+          %img{:src => "photo_options.png"}
 
         %section
           %h2 A few problems we encountered with DRF
