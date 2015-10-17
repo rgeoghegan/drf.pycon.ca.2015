@@ -61,27 +61,118 @@
             %a{:href=>"http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm"} Architectural Styles and the Design of Network-based Software Architectures (2000)
 
         %section
-          %h2 How would it look in REST?
-
-          %ul
-            %li
+          %section
+            %h2 How would it look in REST?
+            %p
               %code GET /photos
-              List of photos
-            %li
+            %p.fragment
+              %pre
+                %code
+                  :preserve
+                    200 OK
+
+                    [
+                      {
+                        "id": 1234,
+                        "title": "My Photo",
+                        "url": "/photos/1234/"
+                        "photo_file": "/media/my_photo.jpg",
+                        ...
+                      },
+                      ...
+                    ]
+
+          %section
+            %h2 How would it look in REST?
+            %p
               %code POST /photos
-              Create new photo
-            %li
-              %code GET /photos/1234/
-              Show one photo
-            %li
-              %code DELETE /photos/1234/
-              Delete the photo
-            %li
-              %code GET/PUT /photos/1234/sharing/
-              List of users who can see the photo
-            %li
-              %code GET/PUT /photos/1234/exif/
-              See the current size of the photo, resize it with <code>PUT</code>
+            %p.fragment
+              %pre
+                %code
+                  :preserve
+                    201 Created
+
+                    {
+                      "id": 1235,
+                      "title": "Photo #2",
+                      "url": "/photos/1235/"
+                      "photo_file": "/media/second_photo.jpg",
+                      ...
+                    }
+          %section
+            %h2 How would it look in REST?
+            %p
+              %code GET /photos/1235/
+            %p.fragment
+              %pre
+                %code
+                  :preserve
+                    200 OK
+
+                    {
+                      "id": 1235,
+                      "title": "Photo #2",
+                      "url": "/photos/1235/"
+                      "photo_file": "/media/second_photo.jpg",
+                      ...
+                    }
+
+          %section
+            %h2 How would it look in REST?
+            %p
+              %code PUT /photos/1235/
+            %p.fragment
+              %pre
+                %code
+                  :preserve
+                    200 OK
+
+                    {
+                      "id": 1235,
+                      "title": "Photo number 2",
+                      "url": "/photos/1235/"
+                      "photo_file": "/media/second_photo.jpg",
+                      ...
+                    }
+
+          %section
+            %h2 How would it look in REST?
+            %p
+              %code DELETE /photos/1235/
+            %p.fragment
+              %pre
+                %code
+                  :preserve
+                    204 No Content
+
+          %section
+            %h2 How would it look in REST?
+            %p
+              %code GET /photos/1234/sharing
+            %p.fragment
+              %pre
+                %code
+                  :preserve
+                    200 OK
+
+                    [
+                      "Jordi",
+                      "Rory"
+                    ]
+
+          %section
+            %h2 How would it look in REST?
+            %p
+              %code PUT /photos/1234/sharing
+            %p.fragment
+              %pre
+                %code
+                  :preserve
+                    200 OK
+
+                    [
+                      "Rory"
+                    ]
 
         %section
           %h2 What does this have to do with Django?
