@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>Blah</title>
+    <link href='css/reveal.css' rel='stylesheet' />
+    <link href='css/theme/moon.css' rel='stylesheet' />
+    <link href='lib/css/zenburn.css' rel='stylesheet' />
+    <link href='lib/font/league-gothic/league-gothic.css' rel='stylesheet' />
+  </head>
+  <body>
+    <div class='reveal'>
+      <div class='slides'>
+        <section>
+          Hello
+        </section>
+        <section>
+          <h1>Unicode is ð© in python 2 but better in python 3</h1>
+        </section>
+        <section>
+          <h1>Unicode is &#x1f4a9; in python 2 but better in python 3</h1>
+        </section>
+        <section class='all_code'>
+          <p>
+            <code>>>> in_unicode = u'\u2603'</code>
+          </p>
+          <p>
+            <code class='fragment'>>>> print(in_unicode)</code>
+          </p>
+          <p>
+            <code class='fragment'>&#x2603;</code>
+          </p>
+          <p>
+            <code class='fragment'>>>> len(in_unicode)</code>
+          </p>
+          <p>
+            <code class='fragment'>1</code>
+          </p>
+        </section>
+        <section>
+          <h2>Pretty Code</h2>
+          <pre><code>function linkify( selector ) {&#x000A;  if( supports3DTransforms ) {&#x000A;&#x000A;    var nodes = document.querySelectorAll( selector );&#x000A;&#x000A;    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {&#x000A;      var node = nodes[i];&#x000A;&#x000A;      if( !node.className ) {&#x000A;        node.className += ' roll';&#x000A;      }&#x000A;    }&#x000A;  }&#x000A;}&#x000A;</code></pre>
+        </section>
+      </div>
+    </div>
+    <script src='lib/js/head.min.js' type='text/javascript'></script>
+    <script src='js/reveal.js' type='text/javascript'></script>
+    <script src='init.js' type='text/javascript'></script>
+  </body>
+</html>
