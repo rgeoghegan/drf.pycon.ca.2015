@@ -231,35 +231,78 @@
 
         %section
           %h2 A few problems we encountered with DRF
-          %ul
-            %li.fragment Dynamic fields kind of subvert the framework
-            %li.fragment Nested resources are awkward
-            %ul
-              %li.fragment Gotta manually link child to parent
-              %li.fragment Messes badly with dynamic fields
 
         %section
-          %p
-            Static fields (as class properties)
-            %pre
-              %code.python
-                :preserve
-                  class UserSerializer(serializers.Serializer):
-                      email = serializers.EmailField()
-                      name = serializers.CharField()
+          %h2 The fields situation
           .fragment
-            %p Dynamic fields (overriding fields property)
-            %pre
-              %code.python
-                :preserve
-                  class UserSerializer(serializers.Serializer):
+            %p
+              Static fields (as class properties)
+              %pre
+                %code.python
+                  :preserve
+                    class UserSerializer(serializers.Serializer):
+                        email = serializers.EmailField()
+                        name = serializers.CharField()
+            .fragment
+              %p Dynamic fields (overriding fields property)
+              %pre
+                %code.python
+                  :preserve
+                    class UserSerializer(serializers.Serializer):
 
-                      @property
-                      def fields(self):
-                          return {
-                              "email": serializers.EmailField(),
-                              "name": serializers.CharField()
-                          }
+                        @property
+                        def fields(self):
+                            return {
+                                "email": serializers.EmailField(),
+                                "name": serializers.CharField()
+                            }
+
+        %section
+          %h2 The fields situation
+          %p Dynamic fields now also require you to do all this other stuff
+          %pre
+            %code.python
+              :preserve
+                class UserSerializer(serializers.Serializer):
+
+                    @property
+                    def fields(self):
+                        fields = get_fields(self)
+
+                    def get_fields(self):
+                        if self.instance:
+                            # ... figure out how to get the fields here
+                        else:
+                            # good luck trying to fetch the fields!
+
+
+        %section
+          %h2  Hierarchy of resources
+          %p For example, <code>/album/42/photo/1234</code>
+
+        %section
+          %h2 Hierarchy of resources
+          %p This requires constantly manually fetching the containing resource
+          %pre
+            %code.python
+              :preserve
+                class PhotoView(RetrieveUpdateDestroyAPIView):
+
+                    def get_object(self):
+
+                        # not DRY
+                        album = get_object_or_404(
+                            Albums.objects.all(),
+                            pk=self.kwargs['album_id']
+                        )
+
+                        # Manually check it's there
+                        photo = get_objects_or_404(
+                             album.photo_set.all(),
+                             pk=self.kwargs['photo_id']
+                        )
+
+                        return photo
 
     - include_js "lib/js/head.min.js"
     - include_js "js/reveal.js"
