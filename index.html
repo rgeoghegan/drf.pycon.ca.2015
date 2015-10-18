@@ -1,8 +1,208 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset='utf-8'>
+    <title>Django Rest Framework: The Good & The Bad</title>
+    <link href='css/reveal.css' rel='stylesheet' />
+    <link href='css/theme/beige.css' rel='stylesheet' />
+    <link href='lib/css/zenburn.css' rel='stylesheet' />
+    <link href='lib/font/league-gothic/league-gothic.css' rel='stylesheet' />
   </head>
   <body>
-      <a href="drf.pycon.ca.2015.html">Django Rest Framework: The Good & The Bad (pycon canada 2015)</a>
+    <div class='reveal'>
+      <div class='slides'>
+        <section>
+          <h1>Django Rest Framework: The Good & The Bad</h1>
+          <h2>Jordi Gutiérrez Hermoso</h2>
+          <h2>& Rory Geoghegan</h2>
+        </section>
+        <section>
+          <h2>What is REST?</h2>
+          <p><strong>RE</strong>presentational <strong>S</strong>tate <strong>T</strong>ransfer</p>
+        </section>
+        <section>
+          <h2>First, an example</h2>
+        </section>
+        <section>
+          <h2>Photoshare.com!</h2>
+          <ul>
+            <li class='fragment'>You can upload photos</li>
+            <li class='fragment'>You can view your photos</li>
+            <li class='fragment'>You can share a photo with your friend(s)</li>
+          </ul>
+        </section>
+        <section>
+          <h2>How would you do it in a SOAP/RPC way?</h2>
+          <ul class='fragment'>
+            <li>
+              <code>POST /addphoto</code>
+            </li>
+            <li>
+              <code>POST /deletephoto?id=1234</code>
+            </li>
+            <li>
+              <code>GET /listphotos?user=555</code>
+            </li>
+            <li>
+              <code>GET /showphoto?id=1234</code>
+            </li>
+            <li>
+              <code>POST /sharephoto?to_user=444</code>
+            </li>
+            <li>
+              <code>POST /resizephoto?width=400&height=200</code>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <p>Roy Thomas Fielding</p>
+          <p>
+            <a href='http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm'>Architectural Styles and the Design of Network-based Software Architectures (2000)</a>
+          </p>
+        </section>
+        <section>
+          <section>
+            <h2>How would it look in REST?</h2>
+            <p>
+              <code>GET /photos</code>
+            </p>
+            <p class='fragment'>
+              <pre><code>200 OK&#x000A;&#x000A;[&#x000A;  {&#x000A;    "id": 1234,&#x000A;    "title": "My Photo",&#x000A;    "url": "/photos/1234/"&#x000A;    "photo_file": "/media/my_photo.jpg",&#x000A;    ...&#x000A;  },&#x000A;  ...&#x000A;]&#x000A;</code></pre>
+            </p>
+          </section>
+          <section>
+            <h2>How would it look in REST?</h2>
+            <p>
+              <code>POST /photos</code>
+            </p>
+            <p class='fragment'>
+              <pre><code>201 Created&#x000A;&#x000A;{&#x000A;  "id": 1235,&#x000A;  "title": "Photo #2",&#x000A;  "url": "/photos/1235/"&#x000A;  "photo_file": "/media/second_photo.jpg",&#x000A;  ...&#x000A;}</code></pre>
+            </p>
+          </section>
+          <section>
+            <h2>How would it look in REST?</h2>
+            <p>
+              <code>GET /photos/1235/</code>
+            </p>
+            <p class='fragment'>
+              <pre><code>200 OK&#x000A;&#x000A;{&#x000A;  "id": 1235,&#x000A;  "title": "Photo #2",&#x000A;  "url": "/photos/1235/"&#x000A;  "photo_file": "/media/second_photo.jpg",&#x000A;  ...&#x000A;}&#x000A;</code></pre>
+            </p>
+          </section>
+          <section>
+            <h2>How would it look in REST?</h2>
+            <p>
+              <code>PUT /photos/1235/</code>
+            </p>
+            <p class='fragment'>
+              <pre><code>200 OK&#x000A;&#x000A;{&#x000A;  "id": 1235,&#x000A;  "title": "Photo number 2",&#x000A;  "url": "/photos/1235/"&#x000A;  "photo_file": "/media/second_photo.jpg",&#x000A;  ...&#x000A;}&#x000A;</code></pre>
+            </p>
+          </section>
+          <section>
+            <h2>How would it look in REST?</h2>
+            <p>
+              <code>DELETE /photos/1235/</code>
+            </p>
+            <p class='fragment'>
+              <pre><code>204 No Content&#x000A;</code></pre>
+            </p>
+          </section>
+          <section>
+            <h2>How would it look in REST?</h2>
+            <p>
+              <code>GET /photos/1234/sharing</code>
+            </p>
+            <p class='fragment'>
+              <pre><code>200 OK&#x000A;&#x000A;[&#x000A;  "Jordi",&#x000A;  "Rory"&#x000A;]&#x000A;</code></pre>
+            </p>
+          </section>
+          <section>
+            <h2>How would it look in REST?</h2>
+            <p>
+              <code>PUT /photos/1234/sharing</code>
+            </p>
+            <p class='fragment'>
+              <pre><code>200 OK&#x000A;&#x000A;[&#x000A;  "Rory"&#x000A;]&#x000A;</code></pre>
+            </p>
+          </section>
+        </section>
+        <section>
+          <h2>What does this have to do with Django?</h2>
+          <div class='fragment'>Writing good REST APIs with Django is hard, but the Django REST Framework (DRF) makes it easy!</div>
+        </section>
+        <section>
+          <h2>PSA: don't do this:</h2>
+          <pre><code class='python'>def myrestview(request):&#x000A;    # Manually loading and validating JSON&#x000A;    data = json.loads(request.POST)&#x000A;    photo = Photo.objects.get(id=data["photo_id"])&#x000A;</code></pre>
+        </section>
+        <section>
+          <h2>How to properly do it</h2>
+          <img src='django_views.png'>
+        </section>
+        <section>
+          <h2>How to properly do it</h2>
+          <img src='drf_views.png'>
+        </section>
+        <section>
+          <h2>Our Photo Model</h2>
+          <pre><code class='python'>class Photo(models.Model):&#x000A;    title = models.CharField()&#x000A;    photo = models.FileField()&#x000A;    user = models.ForeignKey('PhotoUser')&#x000A;    viewers = models.ManyToManyField(&#x000A;        'PhotoUser', related_name='can_view', blank=True&#x000A;    )&#x000A;</code></pre>
+        </section>
+        <section>
+          <h2>The Views</h2>
+          <pre><code class='python'>class PhotoSerializer(ModelSerializer):&#x000A;    class Meta:&#x000A;        model = Photo&#x000A;&#x000A;class PhotoView(RetrieveUpdateDestroyAPIView):&#x000A;    serializer_class = PhotoSerializer&#x000A;    queryset = Photo.objects.all()&#x000A;</code></pre>
+        </section>
+        <section>
+          <h2>
+            <a href='http://localhost:8000/photo/1/'>Live Demo!</a>
+          </h2>
+          <img src='photo_get.png'>
+        </section>
+        <section>
+          <h2>Form Options</h2>
+          <pre><code class='json'>HTTP 200 OK&#x000A;Content-Type: application/json&#x000A;Vary: Accept&#x000A;Allow: GET, PUT, PATCH, DELETE, HEAD, OPTIONS&#x000A;&#x000A;{&#x000A;    "name": "Photo",&#x000A;    "description": "",&#x000A;    "renders": [&#x000A;        "application/json",&#x000A;        "text/html"&#x000A;    ],&#x000A;    "parses": [&#x000A;        "application/json",&#x000A;        "application/x-www-form-urlencoded",&#x000A;        "multipart/form-data"&#x000A;    ],&#x000A;    "actions": {&#x000A;        "PUT": {&#x000A;            "id": {&#x000A;                "type": "integer",&#x000A;                "required": false,&#x000A;                "read_only": true,&#x000A;                "label": "ID"&#x000A;            },&#x000A;            "title": {&#x000A;                "type": "string",&#x000A;                "required": true,&#x000A;                "read_only": false,&#x000A;                "label": "Title",&#x000A;                "max_length": 200&#x000A;            },&#x000A;            "photo": {&#x000A;                "type": "file upload",&#x000A;                "required": true,&#x000A;                "read_only": false,&#x000A;                "label": "Photo"&#x000A;            },&#x000A;            "user": {&#x000A;                "type": "field",&#x000A;                "required": true,&#x000A;                "read_only": false,&#x000A;                "label": "User",&#x000A;                "choices": [&#x000A;                    {&#x000A;                        "display_name": "Rory",&#x000A;                        "value": "1"&#x000A;                    },&#x000A;                    {&#x000A;                        "display_name": "Jordi",&#x000A;                        "value": "2"&#x000A;                    }&#x000A;                ]&#x000A;            },&#x000A;            "viewers": {&#x000A;                "type": "field",&#x000A;                "required": false,&#x000A;                "read_only": false,&#x000A;                "label": "Viewers",&#x000A;                "choices": [&#x000A;                    {&#x000A;                        "display_name": "Rory",&#x000A;                        "value": "1"&#x000A;                    },&#x000A;                    {&#x000A;                        "display_name": "Jordi",&#x000A;                        "value": "2"&#x000A;                    }&#x000A;                ]&#x000A;            }&#x000A;        }&#x000A;    }&#x000A;}&#x000A;</code></pre>
+        </section>
+        <section>
+          <h2>A few problems we encountered with DRF</h2>
+        </section>
+        <section>
+          <h2>The fields situation</h2>
+          <div class='fragment'>
+            <p>
+              Static fields (as class properties)
+              <pre><code class='python'>class UserSerializer(serializers.Serializer):&#x000A;    email = serializers.EmailField()&#x000A;    name = serializers.CharField()</code></pre>
+            </p>
+            <div class='fragment'>
+              <p>Dynamic fields (overriding fields property)</p>
+              <pre><code class='python'>class UserSerializer(serializers.Serializer):&#x000A;&#x000A;    @property&#x000A;    def fields(self):&#x000A;        return {&#x000A;            "email": serializers.EmailField(),&#x000A;            "name": serializers.CharField()&#x000A;        }&#x000A;</code></pre>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2>The fields situation</h2>
+          <p>Dynamic fields now also require you to do all this other stuff</p>
+          <pre><code class='python'>class UserSerializer(serializers.Serializer):&#x000A;&#x000A;    @property&#x000A;    def fields(self):&#x000A;        fields = get_fields(self)&#x000A;&#x000A;    def get_fields(self):&#x000A;        if self.instance:&#x000A;            # ... figure out how to get the fields here&#x000A;        else:&#x000A;            # good luck trying to fetch the fields!&#x000A;&#x000A;</code></pre>
+        </section>
+        <section>
+          <h2>Hierarchy of resources</h2>
+          <p>For example, <code>/album/42/photo/1234</code></p>
+        </section>
+        <section>
+          <h2>Hierarchy of resources</h2>
+          <p>This requires constantly manually fetching the containing resource</p>
+          <pre><code class='python'>class PhotoView(RetrieveUpdateDestroyAPIView):&#x000A;&#x000A;    def get_object(self):&#x000A;&#x000A;        # not DRY&#x000A;        album = get_object_or_404(&#x000A;            Albums.objects.all(),&#x000A;            pk=self.kwargs['album_id']&#x000A;        )&#x000A;&#x000A;        # Manually check it's there&#x000A;        photo = get_objects_or_404(&#x000A;             album.photo_set.all(),&#x000A;             pk=self.kwargs['photo_id']&#x000A;        )&#x000A;&#x000A;        return photo&#x000A;</code></pre>
+        </section>
+        <section>
+          <h2>Contextualising serializers</h2>
+          <p>back to <code>OPTIONS /photo/1/</code></p>
+          <pre><code class='json'>{&#x000A;    ...&#x000A;    "actions": {&#x000A;        "PUT": {&#x000A;            ...&#x000A;            "viewers": {&#x000A;                ...&#x000A;                "choices": [&#x000A;                    {&#x000A;                        "display_name": "Rory",&#x000A;                        "value": "1"&#x000A;                    },&#x000A;                    {&#x000A;                        "display_name": "Jordi",&#x000A;                        "value": "2"&#x000A;                    },&#x000A;                    {&#x000A;                        "display_name": "Bob",&#x000A;                        "value": "3"&#x000A;                    },&#x000A;                    {&#x000A;                        "display_name": "Alice",&#x000A;                        "value": "4"&#x000A;                    }&#x000A;                ]&#x000A;            }&#x000A;        }&#x000A;    }&#x000A;}&#x000A;</code></pre>
+        </section>
+        <section>
+          <h2>Thanks!</h2>
+          Our slides are available here:
+          <a href='http://rgeoghegan.github.io/drf.pycon.ca.2015'>http://rgeoghegan.github.io/drf.pycon.ca.2015</a>
+        </section>
+      </div>
+    </div>
+    <script src='lib/js/head.min.js' type='text/javascript'></script>
+    <script src='js/reveal.js' type='text/javascript'></script>
+    <script src='init.js' type='text/javascript'></script>
   </body>
 </html>
