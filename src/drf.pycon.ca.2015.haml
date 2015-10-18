@@ -221,7 +221,83 @@
 
         %section
           %h2 Form Options
-          %img{:src => "photo_options.png"}
+          -#%img{:src => "photo_options.png"}
+          %pre
+            %code.python
+              :preserve
+                HTTP 200 OK
+                Content-Type: application/json
+                Vary: Accept
+                Allow: GET, PUT, PATCH, DELETE, HEAD, OPTIONS
+
+                {
+                    "name": "Photo",
+                    "description": "",
+                    "renders": [
+                        "application/json",
+                        "text/html"
+                    ],
+                    "parses": [
+                        "application/json",
+                        "application/x-www-form-urlencoded",
+                        "multipart/form-data"
+                    ],
+                    "actions": {
+                        "PUT": {
+                            "id": {
+                                "type": "integer",
+                                "required": false,
+                                "read_only": true,
+                                "label": "ID"
+                            },
+                            "title": {
+                                "type": "string",
+                                "required": true,
+                                "read_only": false,
+                                "label": "Title",
+                                "max_length": 200
+                            },
+                            "photo": {
+                                "type": "file upload",
+                                "required": true,
+                                "read_only": false,
+                                "label": "Photo"
+                            },
+                            "user": {
+                                "type": "field",
+                                "required": true,
+                                "read_only": false,
+                                "label": "User",
+                                "choices": [
+                                    {
+                                        "display_name": "Rory",
+                                        "value": "1"
+                                    },
+                                    {
+                                        "display_name": "Jordi",
+                                        "value": "2"
+                                    }
+                                ]
+                            },
+                            "viewers": {
+                                "type": "field",
+                                "required": false,
+                                "read_only": false,
+                                "label": "Viewers",
+                                "choices": [
+                                    {
+                                        "display_name": "Rory",
+                                        "value": "1"
+                                    },
+                                    {
+                                        "display_name": "Jordi",
+                                        "value": "2"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
 
         %section
           %h2 A few problems we encountered with DRF
