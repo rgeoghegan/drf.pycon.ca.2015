@@ -223,7 +223,7 @@
           %h2 Form Options
           -#%img{:src => "photo_options.png"}
           %pre
-            %code.python
+            %code.json
               :preserve
                 HTTP 200 OK
                 Content-Type: application/json
@@ -373,6 +373,45 @@
                         )
 
                         return photo
+
+        %section
+          %h2 Contextualising resources
+          %p back to this <code>OPTION /album/42/</code>
+          %pre
+            %code.json
+              :preserve
+                {
+                    ...
+                    "actions": {
+                        "PUT": {
+                            ...
+                            "viewers": {
+                                ...
+                                "choices": [
+                                    {
+                                        "display_name": "Rory",
+                                        "value": "1"
+                                    },
+                                    {
+                                        "display_name": "Jordi",
+                                        "value": "2"
+                                    },
+                                    {
+                                        "display_name": "Bob",
+                                        "value": "3"
+                                    },
+                                    {
+                                        "display_name": "Alice",
+                                        "value": "4"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+
+        %section
+          %h2 Thanks
 
     - include_js "lib/js/head.min.js"
     - include_js "js/reveal.js"
