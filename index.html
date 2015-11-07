@@ -106,24 +106,6 @@
               <pre><code>204 No Content&#x000A;</code></pre>
             </p>
           </section>
-          <section>
-            <h2>How would it look in REST?</h2>
-            <p>
-              <code>GET /photos/1234/sharing</code>
-            </p>
-            <p class='fragment'>
-              <pre><code>200 OK&#x000A;&#x000A;[&#x000A;  "Jordi",&#x000A;  "Rory"&#x000A;]&#x000A;</code></pre>
-            </p>
-          </section>
-          <section>
-            <h2>How would it look in REST?</h2>
-            <p>
-              <code>PUT /photos/1234/sharing</code>
-            </p>
-            <p class='fragment'>
-              <pre><code>200 OK&#x000A;&#x000A;[&#x000A;  "Rory"&#x000A;]&#x000A;</code></pre>
-            </p>
-          </section>
         </section>
         <section>
           <h2>What does this have to do with Django?</h2>
@@ -157,7 +139,7 @@
         </section>
         <section>
           <h2>Form Options</h2>
-          <pre><code class='json'>HTTP 200 OK&#x000A;Content-Type: application/json&#x000A;Vary: Accept&#x000A;Allow: GET, PUT, PATCH, DELETE, HEAD, OPTIONS&#x000A;&#x000A;{&#x000A;    "name": "Photo",&#x000A;    "description": "",&#x000A;    "renders": [&#x000A;        "application/json",&#x000A;        "text/html"&#x000A;    ],&#x000A;    "parses": [&#x000A;        "application/json",&#x000A;        "application/x-www-form-urlencoded",&#x000A;        "multipart/form-data"&#x000A;    ],&#x000A;    "actions": {&#x000A;        "PUT": {&#x000A;            "id": {&#x000A;                "type": "integer",&#x000A;                "required": false,&#x000A;                "read_only": true,&#x000A;                "label": "ID"&#x000A;            },&#x000A;            "title": {&#x000A;                "type": "string",&#x000A;                "required": true,&#x000A;                "read_only": false,&#x000A;                "label": "Title",&#x000A;                "max_length": 200&#x000A;            },&#x000A;            "photo": {&#x000A;                "type": "file upload",&#x000A;                "required": true,&#x000A;                "read_only": false,&#x000A;                "label": "Photo"&#x000A;            },&#x000A;            "user": {&#x000A;                "type": "field",&#x000A;                "required": true,&#x000A;                "read_only": false,&#x000A;                "label": "User",&#x000A;                "choices": [&#x000A;                    {&#x000A;                        "display_name": "Rory",&#x000A;                        "value": "1"&#x000A;                    },&#x000A;                    {&#x000A;                        "display_name": "Jordi",&#x000A;                        "value": "2"&#x000A;                    }&#x000A;                ]&#x000A;            },&#x000A;            "viewers": {&#x000A;                "type": "field",&#x000A;                "required": false,&#x000A;                "read_only": false,&#x000A;                "label": "Viewers",&#x000A;                "choices": [&#x000A;                    {&#x000A;                        "display_name": "Rory",&#x000A;                        "value": "1"&#x000A;                    },&#x000A;                    {&#x000A;                        "display_name": "Jordi",&#x000A;                        "value": "2"&#x000A;                    }&#x000A;                ]&#x000A;            }&#x000A;        }&#x000A;    }&#x000A;}&#x000A;</code></pre>
+          <pre><code class='json'>HTTP 200 OK&#x000A;Content-Type: application/json&#x000A;Vary: Accept&#x000A;Allow: GET, PUT, PATCH, DELETE, HEAD, OPTIONS&#x000A;&#x000A;{&#x000A;    "name": "Photo",&#x000A;    "description": "",&#x000A;    "renders": [&#x000A;        "application/json",&#x000A;        "text/html"&#x000A;    ],&#x000A;    "parses": [&#x000A;        "application/json",&#x000A;        "application/x-www-form-urlencoded",&#x000A;        "multipart/form-data"&#x000A;    ],&#x000A;    "actions": {&#x000A;        "PUT": {&#x000A;            "id": {&#x000A;                "type": "integer",&#x000A;                "required": false,&#x000A;                "read_only": true,&#x000A;                "label": "ID"&#x000A;            },&#x000A;            "title": {&#x000A;                "type": "string",&#x000A;                "required": true,&#x000A;                "read_only": false,&#x000A;                "label": "Title",&#x000A;                "max_length": 200&#x000A;            },&#x000A;            "photo": {&#x000A;                "type": "file upload",&#x000A;                "required": true,&#x000A;                "read_only": false,&#x000A;                "label": "Photo"&#x000A;            },&#x000A;            "likes": {&#x000A;                "type": "integer",&#x000A;                "required": true,&#x000A;                "read_only": false,&#x000A;                "label": "Likes"&#x000A;            },&#x000A;            "user": {&#x000A;                "type": "field",&#x000A;                "required": true,&#x000A;                "read_only": false,&#x000A;                "label": "User",&#x000A;                "choices": [&#x000A;                    {&#x000A;                        "value": "1",&#x000A;                        "display_name": "Rory"&#x000A;                    },&#x000A;                    {&#x000A;                        "value": "2",&#x000A;                        "display_name": "Jordi"&#x000A;                    }&#x000A;                ]&#x000A;            },&#x000A;            "viewers": {&#x000A;                "type": "field",&#x000A;                "required": false,&#x000A;                "read_only": false,&#x000A;                "label": "Viewers",&#x000A;                "choices": [&#x000A;                    {&#x000A;                        "value": "1",&#x000A;                        "display_name": "Rory"&#x000A;                    },&#x000A;                    {&#x000A;                        "value": "2",&#x000A;                        "display_name": "Jordi"&#x000A;                    }&#x000A;                ]&#x000A;            }&#x000A;        }&#x000A;    }&#x000A;}&#x000A;</code></pre>
         </section>
         <section>
           <h2>A few problems we encountered with DRF</h2>
@@ -196,8 +178,8 @@
         </section>
         <section>
           <h2>Thanks!</h2>
-          Our slides are available here:
-          <a href='http://rgeoghegan.github.io/drf.pycon.ca.2015'>http://rgeoghegan.github.io/drf.pycon.ca.2015</a>
+          You can view our slideshow here:
+          <a href='http://is.gd/pyconca_drf'>http://is.gd/pyconca_drf</a>
         </section>
       </div>
     </div>
