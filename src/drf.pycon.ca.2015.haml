@@ -200,6 +200,7 @@
                     viewers = models.ManyToManyField(
                         'PhotoUser', related_name='can_view', blank=True
                     )
+                    likes = models.IntegerField()
 
         %section
           %h2 The Views
@@ -263,6 +264,12 @@
                                 "read_only": false,
                                 "label": "Photo"
                             },
+                            "likes": {
+                                "type": "integer",
+                                "required": true,
+                                "read_only": false,
+                                "label": "Likes"
+                            },
                             "user": {
                                 "type": "field",
                                 "required": true,
@@ -270,12 +277,12 @@
                                 "label": "User",
                                 "choices": [
                                     {
-                                        "display_name": "Rory",
-                                        "value": "1"
+                                        "value": "1",
+                                        "display_name": "Rory"
                                     },
                                     {
-                                        "display_name": "Jordi",
-                                        "value": "2"
+                                        "value": "2",
+                                        "display_name": "Jordi"
                                     }
                                 ]
                             },
@@ -286,12 +293,12 @@
                                 "label": "Viewers",
                                 "choices": [
                                     {
-                                        "display_name": "Rory",
-                                        "value": "1"
+                                        "value": "1",
+                                        "display_name": "Rory"
                                     },
                                     {
-                                        "display_name": "Jordi",
-                                        "value": "2"
+                                        "value": "2",
+                                        "display_name": "Jordi"
                                     }
                                 ]
                             }
