@@ -143,7 +143,7 @@
         </section>
         <section>
           <h2>Our Photo Model</h2>
-          <pre><code class='python'>class Photo(models.Model):&#x000A;    title = models.CharField()&#x000A;    photo = models.FileField()&#x000A;    user = models.ForeignKey('PhotoUser')&#x000A;    viewers = models.ManyToManyField(&#x000A;        'PhotoUser', related_name='can_view', blank=True&#x000A;    )&#x000A;</code></pre>
+          <pre><code class='python'>class Photo(models.Model):&#x000A;    title = models.CharField()&#x000A;    photo = models.FileField()&#x000A;    user = models.ForeignKey('PhotoUser')&#x000A;    viewers = models.ManyToManyField(&#x000A;        'PhotoUser', related_name='can_view', blank=True&#x000A;    )&#x000A;    likes = models.IntegerField()&#x000A;</code></pre>
         </section>
         <section>
           <h2>The Views</h2>
