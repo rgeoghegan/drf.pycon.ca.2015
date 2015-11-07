@@ -137,35 +137,6 @@
                   :preserve
                     204 No Content
 
-          %section
-            %h2 How would it look in REST?
-            %p
-              %code GET /photos/1234/sharing
-            %p.fragment
-              %pre
-                %code
-                  :preserve
-                    200 OK
-
-                    [
-                      "Jordi",
-                      "Rory"
-                    ]
-
-          %section
-            %h2 How would it look in REST?
-            %p
-              %code PUT /photos/1234/sharing
-            %p.fragment
-              %pre
-                %code
-                  :preserve
-                    200 OK
-
-                    [
-                      "Rory"
-                    ]
-
         %section
           %h2 What does this have to do with Django?
           .fragment Writing good REST APIs with Django is hard, but the Django REST Framework (DRF) makes it easy!
@@ -419,8 +390,8 @@
 
         %section
           %h2 Thanks!
-          Our slides are available here:
-          %a{:href => "http://rgeoghegan.github.io/drf.pycon.ca.2015"} http://rgeoghegan.github.io/drf.pycon.ca.2015
+          You can view our slideshow here:
+          %a{:href => "http://bit.ly/1lcm7SE"} http://bit.ly/1lcm7SE
 
     - include_js "lib/js/head.min.js"
     - include_js "js/reveal.js"
